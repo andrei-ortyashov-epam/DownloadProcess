@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">DownloadProcess</string>
+
+    <string name="no_permissions_error">To continue, you need permission to write to the device\'s memory!</string>
+    <string name="download_error">Download error occurred! Please try reinstalling the application</string>
+</resources>

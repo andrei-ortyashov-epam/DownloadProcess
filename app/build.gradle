@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    def ext = rootProject.ext
+
+    compileSdkVersion ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion ext.minSdkVersion
+        targetSdkVersion ext.targetSdkVersion
+
+        versionCode ext.versionCode
+        versionName ext.versionName
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    // https://github.com/Kotlin/kotlinx.coroutines/issues/1064
+    packagingOptions {
+        pickFirst("META-INF/atomicfu.kotlin_module")
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    compileOptions {
+        sourceCompatibility = rootProject.ext.javaVersion
+        targetCompatibility = rootProject.ext.javaVersion
+    }
+}
+
+dependencies {
+    rootProject.ext.appDependencies.each {
+        add(it.configuration, it.dependency, it.options)
+    }
+}
